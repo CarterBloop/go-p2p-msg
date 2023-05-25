@@ -72,12 +72,17 @@ func userInput() {
 }
 
 func main() {
-	listenAddress := flag.String("listen", "localhost:8080", "Address to listen on")
-	peerAddress := flag.String("peer", "localhost:8081", "Address of the peer to connect to")
-	flag.Parse()
+	listenIP := flag.String("listen-ip", "localhost", "IP to listen on")
+    listenPort := flag.String("listen-port", "8080", "Port to listen on")
+    peerIP := flag.String("peer-ip", "localhost", "IP of the peer to connect to")
+    peerPort := flag.String("peer-port", "8081", "Port of the peer to connect to")
+    flag.Parse()
 
+    listenAddress := *listenIP + ":" + *listenPort
+    peerAddress := *peerIP + ":" + *peerPort
+	clearScreen()
 	go func() {
-		ln, err := net.Listen("tcp", *listenAddress)
+		ln, err := net.Listen("tcp", listenAddress)
 		if err != nil {
 			fmt.Println("Error setting up listener:", err.Error())
 			return
@@ -98,7 +103,7 @@ func main() {
 		var conn net.Conn
 		var err error
 		for {
-			conn, err = net.Dial("tcp", *peerAddress)
+			conn, err = net.Dial("tcp", peerAddress)
 			if err == nil {
 				go handleOutgoing(conn)
 				break

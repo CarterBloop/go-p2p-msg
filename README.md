@@ -2,4 +2,7 @@
 
 A Peer to Peer messaging application made in golang
 
-go run client.go
+# How to test on localhost
+
+go run client.go -listen-port=8080 -peer-port=8081
+go run client.go -listen-port=8081 -peer-port=8080
