@@ -11,8 +11,8 @@ func main() {
 	listenIP := flag.String("listen-ip", "localhost", "IP to listen on")
 	listenPort := flag.String("listen-port", "8080", "Port to listen on")
 	peerIP := flag.String("peer-ip", "localhost", "IP of the peer to connect to")
-	peerPort := flag.String("peer-port", "8081", "Port of the peer to connect to")
-	username := flag.String("username", "User", "Your username in the chat")
+	peerPort := flag.String("peer-port", "8080", "Port of the peer to connect to")
+	username := flag.String("username", "Carter", "Your username in the chat")
 	flag.Parse()
 
 	listenAddress := *listenIP + ":" + *listenPort

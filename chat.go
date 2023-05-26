@@ -116,12 +116,15 @@ func listenForConnections(listenAddress string, chat *Chat) {
 	}
 	defer ln.Close()
 
+	fmt.Printf("Listening for connections on %s...\n", listenAddress)
+
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
 			fmt.Println("Error accepting connection:", err.Error())
 			continue
 		}
+		fmt.Printf("Accepted connection from %s\n", conn.RemoteAddr().String())
 		go chat.handleIncoming(conn)
 	}
 }
@@ -130,8 +133,10 @@ func connectToPeer(peerAddress string, chat *Chat) {
 	var conn net.Conn
 	var err error
 	for {
+		fmt.Printf("Attempting to connect to peer at %s...\n", peerAddress)
 		conn, err = net.Dial("tcp", peerAddress)
 		if err == nil {
+			fmt.Printf("Successfully connected to peer at %s\n", peerAddress)
 			go chat.handleOutgoing(conn)
 			break
 		}
